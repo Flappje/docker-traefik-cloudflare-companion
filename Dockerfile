@@ -7,8 +7,8 @@ FROM docker.io/tiredofit/${DISTRO}:${DISTRO_VARIANT}
 ENV CONTAINER_ENABLE_MESSAGING=FALSE \
     CONTAINER_ENABLE_SCHEDULING=FALSE \
     CONTAINER_PROCESS_RUNAWAY_PROTECTOR=FALSE \
-    IMAGE_NAME="tiredofit/traefik-cloudflare-companion" \
-    IMAGE_REPO_URL="https://github.com/tiredofit/docker-traefik-cloudflare-companion/"
+    IMAGE_NAME="flappje/traefik-cloudflare-companion" \
+    IMAGE_REPO_URL="https://github.com/flappje/docker-traefik-cloudflare-companion/"
 
 RUN source /assets/functions/00-container && \
     set -x && \
@@ -51,7 +51,7 @@ RUN source /assets/functions/00-container && \
       && \
     \
     pip --break-system-packages install \
-      cloudflare==${DISTRO_VARIANT} \
+      cloudflare==2* \
       get-docker-secret \
       requests \
       && \
