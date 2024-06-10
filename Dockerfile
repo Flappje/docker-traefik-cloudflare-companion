@@ -19,9 +19,9 @@ RUN source /assets/functions/00-container && \
       -g "tcc" \
       -u 8080 tcc
 
-RUN package update && \
-    package upgrade && \
-    package install .tcc-build-deps \
+RUN apk update && \
+    apk upgrade && \
+    apk install .tcc-build-deps \
       cargo \
       gcc \
       libffi-dev \
@@ -52,8 +52,8 @@ RUN pip --break-system-packages install \
       get-docker-secret \
       requests
 
-RUN package remove .tcc-build-deps && \
-    package cleanup && \
+RUN apk remove .tcc-build-deps && \
+    apk cleanup && \
     rm -rf /root/.cache \
       /root/.cargo
 
