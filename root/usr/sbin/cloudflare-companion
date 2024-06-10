@@ -25,7 +25,9 @@ ENABLE_DOCKER_POLL = os.environ.get("ENABLE_DOCKER_POLL", "TRUE")
 DOCKER_SWARM_MODE = os.environ.get("DOCKER_SWARM_MODE", "FALSE")
 ENABLE_TRAEFIK_POLL = os.environ.get("ENABLE_TRAEFIK_POLL", "FALSE")
 LOGFILE = (
-    os.environ.get("LOG_PATH", "/logs") + "/" + os.environ.get("LOG_FILE", "tcc.log")
+    os.environ.get("LOG_PATH", "/var/log/")
+    + "/"
+    + os.environ.get("LOG_FILE", "cf-comp.log")
 )
 LOG_LEVEL = os.environ.get("LOG_LEVEL", "INFO")
 LOG_TYPE = os.environ.get("LOG_TYPE", "BOTH")

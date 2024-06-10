@@ -1,27 +1,8 @@
-ARG DISTRO="alpine"
-ARG DISTRO_VARIANT="3.19"
-ARG cloudflare="2*"
+## docker buildx build . -t openttdv2
 
-FROM docker.io/tiredofit/${DISTRO}:${DISTRO_VARIANT}
+FROM ghcr.io/linuxserver/baseimage-alpine:3.20
 
-ENV CONTAINER_ENABLE_MESSAGING=FALSE \
-    CONTAINER_ENABLE_SCHEDULING=FALSE \
-    CONTAINER_PROCESS_RUNAWAY_PROTECTOR=FALSE \
-    IMAGE_NAME="flappje/traefik-cloudflare-companion" \
-    IMAGE_REPO_URL="https://github.com/flappje/docker-traefik-cloudflare-companion/"
-
-RUN source /assets/functions/00-container && \
-    set -x && \
-    addgroup -S -g 8080 tcc && \
-    adduser -D -S -s /sbin/nologin \
-      -h /dev/null \
-      -G tcc \
-      -g "tcc" \
-      -u 8080 tcc
-
-RUN apk update && \
-    apk upgrade && \
-    apk add .tcc-build-deps \
+RUN apk add --no-cache \
       cargo \
       gcc \
       libffi-dev \
@@ -30,9 +11,7 @@ RUN apk update && \
       py-pip \
       py3-setuptools \
       py3-wheel \
-      python3-dev
-
-RUN apk add .tcc-run-deps \
+      python3-dev \
       docker-py \
       py3-beautifulsoup4 \
       py3-certifi \
@@ -47,14 +26,13 @@ RUN apk add .tcc-run-deps \
       py3-yaml \
       python3
 
-RUN pip --break-system-packages install \
-      cloudflare==2* \
+RUN pip install --break-system-packages \
+      cloudflare==2.* \
       get-docker-secret \
       requests
 
-RUN apk remove .tcc-build-deps && \
-    apk cleanup && \
-    rm -rf /root/.cache \
-      /root/.cargo
+RUN  echo "**** clean up ****" && \
+     rm -rf \
+      /tmp/*
 
-COPY install /
+COPY root /
