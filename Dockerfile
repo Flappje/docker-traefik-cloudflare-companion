@@ -17,10 +17,9 @@ RUN source /assets/functions/00-container && \
       -h /dev/null \
       -G tcc \
       -g "tcc" \
-      -u 8080 tcc \
-      && \
-    \
-    package update && \
+      -u 8080 tcc
+
+RUN package update && \
     package upgrade && \
     package install .tcc-build-deps \
       cargo \
@@ -31,10 +30,9 @@ RUN source /assets/functions/00-container && \
       py-pip \
       py3-setuptools \
       py3-wheel \
-      python3-dev \
-      && \
-    \
-    package install .tcc-run-deps \
+      python3-dev
+
+RUN package install .tcc-run-deps \
       docker-py \
       py3-beautifulsoup4 \
       py3-certifi \
@@ -47,16 +45,14 @@ RUN source /assets/functions/00-container && \
       py3-urllib3 \
       py3-websocket-client \
       py3-yaml \
-      python3 \
-      && \
-    \
-    pip --break-system-packages install \
+      python3
+
+RUN pip --break-system-packages install \
       cloudflare==2* \
       get-docker-secret \
-      requests \
-      && \
-    \
-    package remove .tcc-build-deps && \
+      requests
+
+RUN package remove .tcc-build-deps && \
     package cleanup && \
     rm -rf /root/.cache \
       /root/.cargo
