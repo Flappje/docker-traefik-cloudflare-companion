@@ -21,7 +21,7 @@ RUN source /assets/functions/00-container && \
 
 RUN apk update && \
     apk upgrade && \
-    apk install .tcc-build-deps \
+    apk add .tcc-build-deps \
       cargo \
       gcc \
       libffi-dev \
@@ -32,7 +32,7 @@ RUN apk update && \
       py3-wheel \
       python3-dev
 
-RUN package install .tcc-run-deps \
+RUN apk add .tcc-run-deps \
       docker-py \
       py3-beautifulsoup4 \
       py3-certifi \
